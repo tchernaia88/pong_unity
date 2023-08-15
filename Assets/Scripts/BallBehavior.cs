@@ -2,32 +2,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BallBehavior : MonoBehaviour
+public class BallBehaviour : MonoBehaviour
 {
+
     public Transform paddle;
-    bool gameStarted = false; //Variable bool para confirmar si el juego inicio.
+    public bool gameStarted = false;
+
+    public Rigidbody2D rbBall;
     float posDif = 0;
+    // Use this for initialization
     void Start()
     {
-        
+        posDif = paddle.position.x - transform.position.x;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(!gameStarted)
+        if (!gameStarted)
         {
+            Debug.Log("gameStarted");
 
-             posDif = paddle.position.x - transform.position.x; //Restamos la posicion del Paddle con el transform del mismo objeto para obtener la diferencia.
-            transform.position = new Vector3(paddle.position.x - posDif, paddle.position.y, paddle.position.z); //Luego, asignamos el nuevo vector3 a objeto para su nueva posicion.
+
+            transform.position = new Vector3(paddle.position.x - posDif, paddle.position.y, paddle.position.z);
+
 
             if (Input.GetMouseButtonDown(0))
-            { //Al momento de dar click en nuestra pantalla el juego inicia.
+            {
+                rbBall.velocity = new Vector2(8, 8);
                 gameStarted = true;
             }
         }
 
-    }
 
+    }
 }
 
